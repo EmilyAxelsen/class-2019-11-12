@@ -1,0 +1,35 @@
+---
+title: "Class"
+author: "Emily Axelsen"
+date: "11/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(googlesheets4)
+library(tidyverse)
+library(ISLR)
+library(caret)
+```
+
+```{r}
+sheets_deauth() 
+election <- read_sheet("13NhlT-Oik5P4NOKRWwrJ7xZQlddFNk81HHEw9wkWglM")
+```
+
+# partisan and dvote
+
+```{r}
+election %>%
+  ggplot(aes(partisanship, dvote)) +
+    geom_jitter() +
+    geom_smooth(method = lm)
+```
+
+
+```{r}
+lm(dvote ~ partisanship, data = election) %>%
+  summary()
+```
+
